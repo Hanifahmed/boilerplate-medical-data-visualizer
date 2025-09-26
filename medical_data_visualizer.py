@@ -15,11 +15,11 @@ def _load_and_prepare_df(path=CSV_PATH):
     height_m = df['height'] / 100
     df['overweight'] = ((df['weight'] / (height_m ** 2)) > 25).astype(int)
 
-    # Normalize cholesterol and gluc
+    # Normalize cholesterol and glucose
     df['cholesterol'] = (df['cholesterol'] > 1).astype(int)
     df['gluc'] = (df['gluc'] > 1).astype(int)
 
-    # Ensure binary variables are int
+    # binary variables
     for col in ['smoke', 'alco', 'active', 'cardio']:
         df[col] = df[col].astype(int)
 
@@ -63,7 +63,7 @@ def draw_heat_map():
     """Draw correlation heatmap"""
     df = _load_and_prepare_df(CSV_PATH)
 
-    # Clean data according to boilerplate instructions
+    # Clean data according to instructions
     df_heat = df[
         (df['ap_lo'] <= df['ap_hi']) &
         (df['height'] >= df['height'].quantile(0.025)) &
